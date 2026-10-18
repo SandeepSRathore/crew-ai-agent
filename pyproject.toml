@@ -1,0 +1,20 @@
+[project]
+name = "crew-ai-agent"
+version = "0.1.0"
+description = "Research -> Code -> Review multi-agent pipeline (CrewAI + Ollama) with a live web UI"
+requires-python = ">=3.10,<3.14"
+dependencies = [
+    "crewai[litellm]",
+    "crewai-tools[mcp]",
+    "duckduckgo-mcp-server",
+    "fastapi",
+    "uvicorn[standard]",
+    "python-dotenv",
+    "httpx",
+]
+
+[dependency-groups]
+dev = ["pytest"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]

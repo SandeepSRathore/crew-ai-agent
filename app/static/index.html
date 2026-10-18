@@ -1,0 +1,66 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Agent Relay</title>
+  <link rel="icon" href="/static/favicon.svg" type="image/svg+xml">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600&family=Schibsted+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/github.min.css" media="(prefers-color-scheme: light)">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/github-dark.min.css" media="(prefers-color-scheme: dark)">
+  <link rel="stylesheet" href="/static/styles.css">
+</head>
+<body>
+  <div class="shell">
+    <aside class="sidebar" aria-label="Past runs">
+      <div class="brand">
+        <span class="brand-mark" aria-hidden="true"></span>
+        <span>Agent Relay</span>
+      </div>
+      <button class="new-run" id="new-run" type="button">New run</button>
+      <h2 class="sidebar-heading">History</h2>
+      <ol class="run-list" id="run-list"></ol>
+      <p class="run-list-empty" id="run-list-empty">Runs you start will appear here.</p>
+    </aside>
+
+    <main class="main">
+      <form class="prompt" id="prompt-form">
+        <label for="topic" class="prompt-label">What should the agents build?</label>
+        <textarea id="topic" name="topic" rows="3" maxlength="4000" required
+          placeholder="A Python script that fetches today's weather for a city from a free API and prints a 3-day summary"></textarea>
+        <div class="prompt-row">
+          <span class="health" id="health" data-state="checking">Checking Ollama…</span>
+          <button type="submit" id="run-button">Start run</button>
+        </div>
+        <p class="form-error" id="form-error" role="alert" hidden></p>
+      </form>
+
+      <section class="run" id="run" hidden aria-live="polite">
+        <header class="run-head">
+          <h1 class="run-topic" id="run-topic"></h1>
+          <p class="run-status" id="run-status"></p>
+        </header>
+
+        <ol class="track" id="track"></ol>
+
+        <div class="warnings" id="warnings"></div>
+
+        <div class="detail" id="detail"></div>
+      </section>
+
+      <section class="empty" id="empty">
+        <p>Describe something you want built. The <strong>Researcher</strong> searches the web,
+          the <strong>Coder</strong> writes Python from those notes, and the <strong>Reviewer</strong>
+          lists the problems it finds. You can watch each step here as it happens.</p>
+      </section>
+    </main>
+  </div>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/marked/12.0.2/marked.min.js" integrity="sha384-/TQbtLCAerC3jgaim+N78RZSDYV7ryeoBCVqTuzRrFec2akfBkHS7ACQ3PQhvMVi" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/dompurify/3.1.6/purify.min.js" integrity="sha384-+VfUPEb0PdtChMwmBcBmykRMDd+v6D/oFmB3rZM/puCMDYcIvF968OimRh4KQY9a" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js" integrity="sha384-F/bZzf7p3Joyp5psL90p/p89AZJsndkSoGwRpXcZhleCWhd8SnRuoYo4d0yirjJp" crossorigin="anonymous"></script>
+  <script src="/static/app.js"></script>
+</body>
+</html>
