@@ -9,6 +9,20 @@ Type a few lines about anything you want built. Three CrewAI agents work on it i
 A web UI shows which agent is working right now, what each finished step produced, and the history of past runs.
 Every agent uses a local Ollama model (`qwen3:1.7b` by default).
 
+## Screenshots
+
+While a run is in progress, the agent that's working pulses, finished steps show how long they took, and you can open any step to see its output:
+
+![Research finished, the Coder is working](docs/screenshots/run-in-progress.png)
+
+When the run finishes, the Reviewer's findings are listed with their severity, where they occur, and a suggested fix:
+
+![Review findings](docs/screenshots/review-findings.png)
+
+The Coder's program, with buttons to copy it or download it as `main.py`:
+
+![Generated code](docs/screenshots/generated-code.png)
+
 ## Requirements
 
 - [uv](https://docs.astral.sh/uv/) (it installs Python 3.12 for the project)
@@ -25,6 +39,9 @@ uv run uvicorn app.server:app --port 8000
 Open http://localhost:8000.
 
 To use a different model or Ollama host, copy `.env.example` to `.env` and edit it.
+
+The server only answers requests addressed to `localhost` or `127.0.0.1`, which stops other websites from reaching it
+through DNS rebinding. If you open it under another name (for example a LAN hostname), add that name to `ALLOWED_HOSTS` in `.env`.
 
 ## Outputs
 

@@ -4,11 +4,12 @@ from pathlib import Path
 
 import httpx
 from fastapi import FastAPI, HTTPException
+from fastapi.middleware.trustedhost import TrustedHostMiddleware
 from fastapi.responses import FileResponse, StreamingResponse
 from fastapi.staticfiles import StaticFiles
 from pydantic import BaseModel, Field
 
-from app.config import MODEL, OLLAMA_BASE_URL, ollama_model_name
+from app.config import ALLOWED_HOSTS, MODEL, OLLAMA_BASE_URL, ollama_model_name
 from app.runs import RunBusyError, RunManager, manager
 
 STATIC_DIR = Path(__file__).parent / "static"
@@ -19,8 +20,9 @@ class StartRun(BaseModel):
     topic: str = Field(min_length=1, max_length=4000)
 
 
-def create_app(run_manager: RunManager = manager) -> FastAPI:
+def create_app(run_manager: RunManager = manager, allowed_hosts: list[str] = ALLOWED_HOSTS) -> FastAPI:
     app = FastAPI(title="CrewAI Research → Code → Review")
+    app.add_middleware(TrustedHostMiddleware, allowed_hosts=allowed_hosts)
 
     @app.get("/api/health")
     async def health():
